@@ -155,14 +155,14 @@ const jsonExportTemplate =
     
 //     https://godoc.org/gopkg.in/gomail.v2
     m := gomail.NewMessage()
-    m.SetHeader("From", "example@example.com")
-    m.SetHeader("To", "cfp-signup-2016@tuebix.org")
+    m.SetHeader("From", "noreply@tuebix.imosnet.de")
+    m.SetHeader("To", "florian@heimgaertner.net")
 //     m.SetHeader("CC", "js@lastlog.de")
     m.SetHeader("Subject", "tuebix16 beitrag: " + noItems.Name + ": " + noItems.Titel)
     
     p := `Hallo,
     
-    ich bin der server nixcloud.io und sende neue tuebix anfragen:
+    ich bin der server cfp.tuebix.org und sende neue tuebix anfragen:
     
     ================= <json> =================
     `
@@ -184,7 +184,8 @@ const jsonExportTemplate =
 
 
     
-    d := gomail.NewPlainDialer("example.com", 587, "example@example.com", "examplepassword")
+//    d := gomail.NewPlainDialer("localhost", 587, "example@example.com", "examplepassword")
+    d := &gomail.Dialer{Host: "localhost", Port: 25, SSL: false}
     if err := d.DialAndSend(m); err != nil {
         panic(err)
     }
