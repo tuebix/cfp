@@ -61,6 +61,7 @@ func (c *Context) Submit(rw web.ResponseWriter, req *web.Request) {
      Titel                  string
      Buzzword               string
      Inhalt                 string
+     AboutMe                string
      Vorwissen              string
      Weblinks               string
      Sonstiges              string
@@ -100,6 +101,8 @@ func (c *Context) Submit(rw web.ResponseWriter, req *web.Request) {
           noItems.Email = zz
         case key == "inhalt":
           noItems.Inhalt = zz
+        case key == "aboutme":
+          noItems.AboutMe = zz
         case key == "weblinks":
           noItems.Weblinks = zz
         case key == "name":
@@ -122,7 +125,6 @@ const jsonExportTemplate =
   "type": {
     "v25": {{.V25}},
     "v55": {{.V55}},
-    "alsWSmoeglich": {{.VortragAlsWS}},
     "lightning5": {{.LT5}},
     "workshop": {{.Workshop}}
    },
@@ -130,6 +132,7 @@ const jsonExportTemplate =
   "titel": "{{.Titel}}",
   "buzzword": "{{.Buzzword}}",
   "inhalt": "{{.Inhalt}}",
+  "aboutme": "{{.AboutMe}}",
   "vorwissen": "{{.Vorwissen}}",
   "weblinks": "{{.Weblinks}}",
   "sonstiges": "{{.Sonstiges}}"
