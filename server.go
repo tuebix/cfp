@@ -161,7 +161,7 @@ const jsonExportTemplate =
     m.SetHeader("From", "cfp-noreply@tuebix.org")
     m.SetHeader("To", "cfp2017@tuebix.org")
 //     m.SetHeader("CC", "js@lastlog.de")
-    m.SetHeader("Subject", "tuebix16 beitrag: " + noItems.Name + ": " + noItems.Titel)
+    m.SetHeader("Subject", "tuebix17 beitrag: " + noItems.Name + ": " + noItems.Titel)
     
     p := `Hallo,
     
