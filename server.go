@@ -104,7 +104,7 @@ func (c *Context) Submit(rw web.ResponseWriter, req *web.Request) {
         case key == "aboutme":
           noItems.AboutMe = zz
         case key == "weblinks":
-          noItems.Weblinks = zz
+          noItems.Weblinks = strings.Join(value, " ");
         case key == "name":
           noItems.Name = zz
         case key == "sonstiges":
@@ -134,8 +134,8 @@ const jsonExportTemplate =
   "inhalt": "{{.Inhalt}}",
   "aboutme": "{{.AboutMe}}",
   "vorwissen": "{{.Vorwissen}}",
-  "weblinks": "{{.Weblinks}}",
-  "sonstiges": "{{.Sonstiges}}"
+  "sonstiges": "{{.Sonstiges}}",
+  "weblinks": {{.Weblinks}}
 }
 `
 
@@ -158,7 +158,7 @@ const jsonExportTemplate =
     
 //     https://godoc.org/gopkg.in/gomail.v2
     m := gomail.NewMessage()
-    m.SetHeader("From", "noreply@tuebix.imosnet.de")
+    m.SetHeader("From", "cfp-noreply@tuebix.org")
     m.SetHeader("To", "florian@heimgaertner.net")
 //     m.SetHeader("CC", "js@lastlog.de")
     m.SetHeader("Subject", "tuebix16 beitrag: " + noItems.Name + ": " + noItems.Titel)

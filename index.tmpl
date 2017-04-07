@@ -20,11 +20,12 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script type="text/javascript" src="public/js/jquery-2.1.1.min.js"></script>
     <script type="text/javascript" src="public/js/materialize.min.js"></script>
+    <script type="text/javascript" src="public/js/formular.js"></script>
   </head>
 
   <body>
 
-<form id="mrForm">
+<form id="mrForm" action="/submit" method="post">
 
   <div class="section no-pad-bot" id="index-banner">
     <div class="container">
@@ -183,7 +184,7 @@ Wir haben viele kleine Vortragsräume und könnten somit viele Workshops anbiete
 
 
 
-<h3 id="mitschnitteChapter"><i class="material-icons prefix">mic_none</i> / <i class="material-icons prefix">videocam</i> Mitschnitte Audio/Film</h3>
+<h3 id="mitschnitteChapter"><i class="material-icons prefix">mic</i> / <i class="material-icons prefix">videocam</i> Mitschnitte Audio/Film</h3>
         
     Ich bin damit einverstanden Audio-/Videomitschnitte Meines Beitrags auf (z.B. tuebix.org) zu veröffentlichen:
 
@@ -201,7 +202,7 @@ Wir haben viele kleine Vortragsräume und könnten somit viele Workshops anbiete
 
 
 
-<h3 id="titelChapter">Titel</h3>
+<h3 id="titelChapter"><i class="material-icons prefix">label</i> Titel</h3>
 Wähle einen fetzigen kurzen Titel: 
 <input type="checkbox" name="titel" value=""><br>
 
@@ -221,7 +222,7 @@ Wähle einen fetzigen kurzen Titel:
 
 
 
-<h3 id="buzzwordChapter">Buzzword Bingo</h3>
+<h3 id="buzzwordChapter"><i class="material-icons prefix">list</i> Buzzword Bingo</h3>
 Nenne ein paar Schlagworte, die helfen deinen Vortrag thematisch
 einzuordnen (Technologien, Programmiersprachen, Distributionen etc.)
 <input type="checkbox" name="buzzword" value=""><br>
@@ -240,7 +241,7 @@ einzuordnen (Technologien, Programmiersprachen, Distributionen etc.)
 
 
 
-<h3 id="aboutmeChapter"><i class="material-icons prefix">perm_identity</i> About Me</h3>
+<h3 id="aboutmeChapter"><i class="material-icons prefix">person</i> About Me</h3>
 <p>Stelle dich kurz vor:</p>
   <div class="row">
     <div class="col s12">
@@ -286,7 +287,26 @@ einzuordnen (Technologien, Programmiersprachen, Distributionen etc.)
 
 <h3 id="weblinksChapter">Weblinks</h3>
 <p>Hinterlege hier eine Liste an Weblinks:
+
   <div class="row">
+    <div class="col s12" id="urls">
+      <div class="row weblink">
+        <!-- div class="input-field col s6">
+          <i class="material-icons prefix">http</i>
+          <input name="linkurl" type="url" class="validate">
+          <label for="linkurl">URL</label>
+        </div>
+        <div class="input-field col s5">
+          <i class="material-icons prefix">description</i>
+          <input name="linktxt" type="text">
+          <label for="linktxt" >Titel</label>
+        </div -->
+                <a href="#" id="addbtn" class="material-icons">add_box</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- div class="row">
     <div class="col s12">
       <div class="row">
         <div class="input-field col s12">
@@ -295,7 +315,7 @@ einzuordnen (Technologien, Programmiersprachen, Distributionen etc.)
         </div>
       </div>
     </div>
-  </div>
+  </div -->
 
 
 
@@ -534,6 +554,8 @@ http://stackoverflow.com/questions/9335140/how-to-countdown-to-a-date
         formData[node.name] = (node.checked == true);
       } else if (node.type == "radio"){
         formData[node.name] = $('#mitschnittZustimmungJA').is(":checked")
+      } else if (node.name.lastIndexOf('link', 0) === 0) {
+       // do nothing
       } else {
         formData[node.name] = node.value;
       }
@@ -542,6 +564,22 @@ http://stackoverflow.com/questions/9335140/how-to-countdown-to-a-date
     
     formData[node.name] = node.value;
     });
+
+    var weblinks = {};
+    var linkcnt = 0;
+    $(form).find("div.weblink").each(function(index, node) {
+       var u = $("[name=linkurl]", node)[0];
+       var t = $("[name=linktxt]", node)[0];
+       if ( typeof u !== 'undefined' ) {
+         linkcnt++;
+         weblinks[linkcnt] = {}
+         weblinks[linkcnt].url = u.value;
+         weblinks[linkcnt].title = t.value || u.value;
+       }
+    });
+
+    formData['weblinks'] = JSON.stringify(weblinks, null, 3);
+
 
     $('#submitButton').attr("disabled","disabled");
 
