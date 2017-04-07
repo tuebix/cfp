@@ -159,7 +159,7 @@ const jsonExportTemplate =
 //     https://godoc.org/gopkg.in/gomail.v2
     m := gomail.NewMessage()
     m.SetHeader("From", "cfp-noreply@tuebix.org")
-    m.SetHeader("To", "florian@heimgaertner.net")
+    m.SetHeader("To", "cfp2017@tuebix.org")
 //     m.SetHeader("CC", "js@lastlog.de")
     m.SetHeader("Subject", "tuebix16 beitrag: " + noItems.Name + ": " + noItems.Titel)
     
@@ -176,11 +176,8 @@ const jsonExportTemplate =
     
     ================= </json> =================
     
-    falls es probleme mit diesem dienst gibt, bitte an:
-    joachim schiele <js@lastlog.de> wenden.
+    falls es probleme mit diesem dienst gibt, bitte an info@tuebix.org wenden.
     
-    glg,
-    joachim
     `
     m.SetBody("text/plain", p)
 
